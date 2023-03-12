@@ -1,0 +1,21 @@
+.closebutton{
+text-align: right;     
+}
+.but{
+display:flex;
+justify-content:right;
+align-items: flex-end;
+background-color:lightgray;
+
+}
+.field{
+    background-color:darkcyan;
+    font:bold;
+    font-size:large;
+    padding: 3px ;
+    color: white;
+    margin-bottom: 12px;
+}
+
+
+
