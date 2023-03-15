@@ -64,47 +64,7 @@ export const UserContextProvider = (props) => {
       });
       return newObj;
     });
-    // for (const Key in data) {
-    //   temp.push({
-    //     id: Key,
-    //     status: data[Key].status,
-    //     UserType: data[Key].UserType,
-    //     Country: data[Key].Country,
-    //     FirstName: data[Key].FirstName,
-    //     MiddleName: data[Key].MiddleName,
-    //     LastName: data[Key].LastName,
-    //     Gender: data[Key].Gender,
-    //     ArabicfirstName: data[Key].ArabicfirstName,
-    //     ArabicMiddleName: data[Key].ArabicMiddleName,
-    //     ArabicLastName: data[Key].ArabicLastName,
-    //     DOB: data[Key].DOB,
-    //     MobileNumber: data[Key].MobileNumber,
-    //     Nationality: data[Key].Nationality,
-    //     CountryOfBirth: data[Key].CountryOfBirth,
-    //     CityOfBirth: data[Key].CityOfBirth,
-    //     StreetName: data[Key].StreetName,
-    //     AddressCountry: data[Key].AddressCountry,
-    //     City: data[Key].City,
-    //     ZipCode: data[Key].ZipCode,
-    //     BuildingNumber: data[Key].BuildingNumber,
-    //     WorkStatus: data[Key].WorkStatus,
-    //     ProfessionalLevel: data[Key].ProfessionalLevel,
-    //     EmployeeName: data[Key].EmployeeName,
-    //     WorkAddress: data[Key].WorkAddress,
-    //     SalaryRange: data[Key].SalaryRange,
-    //     IdentificationType: data[Key].IdentificationType,
-    //     IdentificationNO: data[Key].IdentificationNO,
-    //     frontside: data[Key].frontside,
-    //     backside: data[Key].backside,
-    //     IssuedDate: data[Key].IssuedDate,
-    //     DegreeofRelation: data[Key].DegreeofRelation,
-    //     Locationforcarddelivery: data[Key].Locationforcarddelivery,
-    //     USGreencardholder: data[Key].USGreencardholder,
-    //     USTaxpayer: data[Key].USTaxpayer,
-    //     USResident: data[Key].USResident,
-    //     Politicallyexposedperson: data[Key].Politicallyexposedperson,
-    //   });
-    // }
+
     setUser(temp);
   };
   const uservalue = {
