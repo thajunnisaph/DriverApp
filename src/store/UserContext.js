@@ -9,7 +9,6 @@ export const UserContextProvider = (props) => {
   const [user, setUser] = useState([]);
 
   const addUserHandler = (user) => {
-    
     setUser((prev) => {
       return [...prev, user];
     });
@@ -20,48 +19,92 @@ export const UserContextProvider = (props) => {
       `https://test-fad68-default-rtdb.firebaseio.com/drivers.json`
     );
     const data = res.data;
-    const temp = [];
-    for (const Key in data) {
-      temp.push({
-        id: Key,
-        status: data[Key].status,
-        UserType: data[Key].UserType,
-        Country: data[Key].Country,
-        FirstName: data[Key].FirstName,
-        MiddleName: data[Key].MiddleName,
-        LastName: data[Key].LastName,
-        Gender: data[Key].Gender,
-        ArabicfirstName: data[Key].ArabicfirstName,
-        ArabicMiddleName: data[Key].ArabicMiddleName,
-        ArabicLastName: data[Key].ArabicLastName,
-        DOB: data[Key].DOB,
-        MobileNumber: data[Key].MobileNumber,
-        Nationality: data[Key].Nationality,
-        CountryOfBirth: data[Key].CountryOfBirth,
-        CityOfBirth: data[Key].CityOfBirth,
-        StreetName: data[Key].StreetName,
-        AddressCountry: data[Key].AddressCountry,
-        City: data[Key].City,
-        ZipCode: data[Key].ZipCode,
-        BuildingNumber: data[Key].BuildingNumber,
-        WorkStatus: data[Key].WorkStatus,
-        ProfessionalLevel: data[Key].ProfessionalLevel,
-        EmployeeName: data[Key].EmployeeName,
-        WorkAddress: data[Key].WorkAddress,
-        SalaryRange: data[Key].SalaryRange,
-        IdentificationType: data[Key].IdentificationType,
-        IdentificationNO: data[Key].IdentificationNO,
-        frontside: data[Key].frontside,
-        backside: data[Key].backside,
-        IssuedDate: data[Key].IssuedDate,
-        DegreeofRelation: data[Key].DegreeofRelation,
-        Locationforcarddelivery: data[Key].Locationforcarddelivery,
-        USGreencardholder: data[Key].USGreencardholder,
-        USTaxpayer: data[Key].USTaxpayer,
-        USResident: data[Key].USResident,
-        Politicallyexposedperson: data[Key].Politicallyexposedperson,
+    const requiredProps = [
+      "id",
+      "UserType",
+      "status",
+      "Country",
+      "FirstName",
+      "MiddleName",
+      "LastName",
+      "Gender",
+      "ArabicfirstName",
+      "ArabicLastName",
+      "DOB",
+      "MobileNumber",
+      "Nationality",
+      "CountryOfBirth",
+      "CityOfBirth",
+      "StreetName",
+      "AddressCountry",
+      "City",
+      "ZipCode",
+      "BuildingNumber",
+      "WorkStatus",
+      "ProfessionalLevel",
+      "EmployeeName",
+      "WorkAddress",
+      "SalaryRange",
+      "IdentificationType",
+      "IdentificationNO",
+      "frontside",
+      "backside",
+      "IssuedDate",
+      "DegreeOfRelation",
+      "Locationforcarddelivery",
+      "USGreencardholder",
+      "USTaxpayer",
+      "USResident",
+      "Politicallyexposedperson",
+    ];
+    const temp = Object.keys(data).map((key) => {
+      const newObj = {};
+      requiredProps.forEach((prop) => {
+        newObj[prop] = data[key][prop];
       });
-    }
+      return newObj;
+    });
+    // for (const Key in data) {
+    //   temp.push({
+    //     id: Key,
+    //     status: data[Key].status,
+    //     UserType: data[Key].UserType,
+    //     Country: data[Key].Country,
+    //     FirstName: data[Key].FirstName,
+    //     MiddleName: data[Key].MiddleName,
+    //     LastName: data[Key].LastName,
+    //     Gender: data[Key].Gender,
+    //     ArabicfirstName: data[Key].ArabicfirstName,
+    //     ArabicMiddleName: data[Key].ArabicMiddleName,
+    //     ArabicLastName: data[Key].ArabicLastName,
+    //     DOB: data[Key].DOB,
+    //     MobileNumber: data[Key].MobileNumber,
+    //     Nationality: data[Key].Nationality,
+    //     CountryOfBirth: data[Key].CountryOfBirth,
+    //     CityOfBirth: data[Key].CityOfBirth,
+    //     StreetName: data[Key].StreetName,
+    //     AddressCountry: data[Key].AddressCountry,
+    //     City: data[Key].City,
+    //     ZipCode: data[Key].ZipCode,
+    //     BuildingNumber: data[Key].BuildingNumber,
+    //     WorkStatus: data[Key].WorkStatus,
+    //     ProfessionalLevel: data[Key].ProfessionalLevel,
+    //     EmployeeName: data[Key].EmployeeName,
+    //     WorkAddress: data[Key].WorkAddress,
+    //     SalaryRange: data[Key].SalaryRange,
+    //     IdentificationType: data[Key].IdentificationType,
+    //     IdentificationNO: data[Key].IdentificationNO,
+    //     frontside: data[Key].frontside,
+    //     backside: data[Key].backside,
+    //     IssuedDate: data[Key].IssuedDate,
+    //     DegreeofRelation: data[Key].DegreeofRelation,
+    //     Locationforcarddelivery: data[Key].Locationforcarddelivery,
+    //     USGreencardholder: data[Key].USGreencardholder,
+    //     USTaxpayer: data[Key].USTaxpayer,
+    //     USResident: data[Key].USResident,
+    //     Politicallyexposedperson: data[Key].Politicallyexposedperson,
+    //   });
+    // }
     setUser(temp);
   };
   const uservalue = {

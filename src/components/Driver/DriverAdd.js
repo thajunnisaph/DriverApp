@@ -175,7 +175,7 @@ const DriverAdd = () => {
                       setFormData({ ...formData, country: e.target.value })
                     }
                     required
-                    className={formData.country ? "" : "is-invalid"}
+                    className={formData.country ? "" : "is-invalid" }
                   >
                     <option value="">Select Country</option>
                     <option value="INDIA">INDIA</option>
@@ -208,7 +208,7 @@ const DriverAdd = () => {
                       name="group0"
                       type="radio"
                       value="Broker&Driver"
-                      checked={formData.userType === "Driver"}
+                      checked={formData.userType === "Broker&Driver"}
                       onChange={(e) =>
                         setFormData({ ...formData, userType: e.target.value })
                       }
@@ -320,11 +320,11 @@ const DriverAdd = () => {
                     <Form.Control
                       type="text"
                       name="arabicMiddleName"
-                      value={formData.arabicMiddleName}
+                      value={formData.arabicLastName}
                       onChange={(e) =>
                         setFormData({
                           ...formData,
-                          arabicMiddleName: e.target.value,
+                          arabicLastName: e.target.value,
                         })
                       }
                     />
@@ -370,7 +370,6 @@ const DriverAdd = () => {
                   <Form.Group as={Col} controlId="formGridNation">
                     <Form.Label>NATIONALITY</Form.Label>
                     <Form.Select
-                      defaultValue="Select Nationality"
                       name="nationality"
                       value={formData.nationality}
                       onChange={(e) =>
@@ -410,7 +409,6 @@ const DriverAdd = () => {
                   <Form.Group as={Col} controlId="formGridCityB">
                     <Form.Label>CITY OF BIRTH</Form.Label>
                     <Form.Select
-                      defaultValue="Select City"
                       name="city"
                       value={formData.cityOfBirth}
                       onChange={(e) =>
@@ -463,7 +461,6 @@ const DriverAdd = () => {
                   <Form.Group as={Col} controlId="formGridCount">
                     <Form.Label>COUNTRY</Form.Label>
                     <Form.Select
-                      defaultValue="Select Country"
                       name="presentAddressCountry"
                       value={formData.presentAddressCountry}
                       onChange={(e) =>
@@ -534,7 +531,6 @@ const DriverAdd = () => {
                   <Form.Group as={Col} controlId="formGridWorkStatus">
                     <Form.Label>WORK STATUS</Form.Label>
                     <Form.Select
-                      defaultValue="Select Work Status"
                       required
                       name="workStatus"
                       value={formData.workStatus}
@@ -621,7 +617,6 @@ const DriverAdd = () => {
                   <Form.Group as={Col} controlId="formGridWorkType">
                     <Form.Label>IDENTIFICATION TYPE</Form.Label>
                     <Form.Select
-                      defaultValue="Select Identification"
                       required
                       name="identificationType"
                       value={formData.identificationType}
@@ -835,7 +830,6 @@ const DriverAdd = () => {
                 <Form.Group as={Col} controlId="formGridWDegree">
                   <Form.Label>DEGREE OF RELATIONSHIP*</Form.Label>
                   <Form.Select
-                    defaultValue="Select Relation"
                     required
                     name="degreeOfRelation"
                     value={formData.degreeOfRelation}
@@ -854,7 +848,6 @@ const DriverAdd = () => {
                 <Form.Group as={Col} controlId="formGriddelivery">
                   <Form.Label>PREFFERED LOCATION FOR CARD DELIVERY</Form.Label>
                   <Form.Select
-                    defaultValue="Select Location"
                     required
                     name="cardDeliveryLocation"
                     value={formData.cardDeliveryLocation}
