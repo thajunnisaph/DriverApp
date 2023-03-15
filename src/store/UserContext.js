@@ -20,7 +20,6 @@ export const UserContextProvider = (props) => {
     );
     const data = res.data;
     const requiredProps = [
-      "id",
       "UserType",
       "status",
       "Country",
@@ -58,8 +57,9 @@ export const UserContextProvider = (props) => {
       "Politicallyexposedperson",
     ];
     const temp = Object.keys(data).map((key) => {
-      const newObj = {};
+      const newObj = {id:key};
       requiredProps.forEach((prop) => {
+        
         newObj[prop] = data[key][prop];
       });
       return newObj;

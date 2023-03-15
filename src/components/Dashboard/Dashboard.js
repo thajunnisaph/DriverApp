@@ -27,6 +27,14 @@ const Dashboard = () => {
   const addDriverHandler = () => {
     history.push("/add");
   };
+  const data = [
+    { title: "Total New Drivers", value: 0 },
+    { title: "Active Drivers", value: 0 },
+    { title: "Inactive Drivers", value: 0 },
+    { title: "In-Process Drivers", value: pendingcount },
+    { title: "Rejected Drivers", value: 0 },
+    { title: "Total Drivers", value: 0 },
+  ];
   return (
     <div>
       <Navbar bg="dark" expand="sm">
@@ -39,6 +47,7 @@ const Dashboard = () => {
           <FloatingLabel controlId="floatingSelect" label="COUNTRY">
             <Form.Select>
               <option>United Arab Emirates</option>
+              <option>Qatar</option>
             </Form.Select>
           </FloatingLabel>
         </Form.Group>
@@ -53,42 +62,15 @@ const Dashboard = () => {
         </Form.Group>
       </Container>
       <Container className="cards">
-        <Card className="card">
-          <Card.Body>
-            <Card.Title>Total New Drivers</Card.Title>
-            <Card.Text>0</Card.Text>
-          </Card.Body>
-        </Card>
-        <Card className="active">
-          <Card.Body>
-            <Card.Title>Active Drivers</Card.Title>
-            <Card.Text>0</Card.Text>
-          </Card.Body>
-        </Card>
-        <Card className="active">
-          <Card.Body>
-            <Card.Title>Inactive Drivers</Card.Title>
-            <Card.Text>0</Card.Text>
-          </Card.Body>
-        </Card>
-        <Card className="active">
-          <Card.Body>
-            <Card.Title>In-Process Drivers</Card.Title>
-            <Card.Text>{pendingcount}</Card.Text>
-          </Card.Body>
-        </Card>
-        <Card className="active">
-          <Card.Body>
-            <Card.Title>Rejected Drivers</Card.Title>
-            <Card.Text>0</Card.Text>
-          </Card.Body>
-        </Card>
-        <Card className="active">
-          <Card.Body>
-            <Card.Title>Total Drivers</Card.Title>
-            <Card.Text>0</Card.Text>
-          </Card.Body>
-        </Card>
+        {data.map((item, index) => (
+          <Card className="card">
+            <Card.Body>
+              <Card.Title>{item.title}</Card.Title>
+              <Card.Text>{item.value}</Card.Text>
+            </Card.Body>
+          </Card>
+        ))}
+
         <div className="button">
           <Button
             variant="primary"
