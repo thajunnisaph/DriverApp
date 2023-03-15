@@ -1,4 +1,4 @@
-import React, { useRef, useContext, useState } from "react";
+import React, { useContext, useState } from "react";
 import "./DriverAdd.css";
 import {
   Card,
@@ -16,71 +16,55 @@ import UserContext from "../../store/UserContext";
 import { useHistory } from "react-router-dom";
 
 const DriverAdd = () => {
+  const [formData, setFormData] = useState({
+    country: "",
+    userType: "",
+    firstName: "",
+    middleName: "",
+    lastName: "",
+    gender: "",
+    arabicFirstName: "",
+    arabicMiddleName: "",
+    ArabicLastName: "",
+    nationality: "",
+    countryOfBirth: "",
+    cityOfBirth: "",
+    nameOnTheCard: "",
+    streetName: "",
+    presentAddressCountry: "",
+    city: "",
+    zipCode: "",
+    buildingNumber: "",
+    workStatus: "",
+    professionalLevel: "",
+    employeeName: "",
+    workAddress: "",
+    salaryRange: "",
+    identificationType: "",
+    identificationNO: "",
+    issuedDate: "",
+    USGreenCardHolder: "",
+    USTaxPayer: "",
+    USResident: "",
+    politicallyExposedPerson: "",
+    degreeOfRelation: "",
+    cardDeliveryLocation: "",
+  });
   const [submitted, setSubmitted] = useState(false);
   const [isValid, setIsValid] = useState(false);
   const history = useHistory();
   const usercntx = useContext(UserContext);
   const [phonenumber, setPhonenumber] = useState("");
   const [isPhoneValid, setIsPhoneValid] = useState(false);
-  const [country, setCountry] = useState("");
-  const [isCountryValid, setIsCountryValid] = useState(false);
-  const [firstname, setFirstName] = useState("");
-  const [fnameValid, setFnameValid] = useState(false);
-  const [lastname, setLastName] = useState("");
-  const [lnameValid, setLnameValid] = useState(false);
-  const middleref = useRef();
-  const genderref = useRef();
-  const arabicfirstref = useRef();
-  const arabicsecondref = useRef();
-  const arabiclastref = useRef();
-  const nationref = useRef();
-  const countbref = useRef();
-  const cardnameref = useRef();
-  const citybref = useRef();
-  const countref = useRef();
-  const townref = useRef();
-  const zipref = useRef();
-  const buildref = useRef();
-  const streetref = useRef();
-  const workref = useRef();
-  const professionref = useRef();
-  const employeeref = useRef();
-  const addressref = useRef();
-  const salaryref = useRef();
-  const identityref = useRef();
-  const identnoref = useRef();
-  const frontref = useRef();
-  const backref = useRef();
-  const issueref = useRef();
-  const relationref = useRef();
-  const preref = useRef();
-  const politicref = useRef();
-  const greenref = useRef();
-  const taxref = useRef();
-  const residentref = useRef();
+
   const [birthdate, setBirthdate] = useState("");
-  const [selectedOption, setSelectedOption] = useState("");
+
   const handleBirthdateChange = (event) => {
     const dateOfBirth = new Date(event.target.value);
     const ageInMs = Date.now() - dateOfBirth.getTime();
     const ageInYears = ageInMs / (1000 * 60 * 60 * 24 * 365.25);
     setIsValid(ageInYears >= 18);
     setBirthdate(event.target.value);
-  };
-  const handleCountryChange = (e) => {
-    setCountry(e.target.value);
-    setIsCountryValid(e.target.value !== "");
-  };
-  const handleOptionChange = (e) => {
-    setSelectedOption(e.target.value);
-  };
-  const handleFirstNameChange = (e) => {
-    setFirstName(e.target.value);
-    setFnameValid(e.target.value !== "");
-  };
-  const handleLastNameChange = (e) => {
-    setLastName(e.target.value);
-    setLnameValid(e.target.value !== "");
   };
   const handlePhoneNumberChange = (event) => {
     setPhonenumber(event.target.value);
@@ -91,52 +75,56 @@ const DriverAdd = () => {
   const closeHandler = () => {
     history.push("/");
   };
-
+  const validateForm = () => {
+    const requiredFields = ["firstName", "lastName", "group0", "gender"];
+    const hasEmptyField = requiredFields.some(
+      (fieldName) => !formData[fieldName]
+    );
+    return !hasEmptyField;
+  };
   const submitHandler = (e) => {
     e.preventDefault();
     setSubmitted(true);
     setIsPhoneValid(
       /^(\+\d{1,2}\s)?\d{3}[-]?\d{3}[-]?\d{4}$/.test(phonenumber)
     );
-    if (isValid && isPhoneValid && isCountryValid && fnameValid && lnameValid) {
-      console.log("hello");
+    if (isValid && isPhoneValid) {
       const driver = {
         status: "pending",
-        Country: country,
-        UserType: selectedOption,
-        FirstName: firstname,
-        MiddleName: middleref.current.value,
-        LastName: lastname,
-        Gender: genderref.current.value,
-        ArabicfirstName: arabicfirstref.current.value,
-        ArabicMiddleName: arabicsecondref.current.value,
-        ArabicLastName: arabiclastref.current.value,
+        Country: formData.country,
+        UserType: formData.userType,
+        FirstName: formData.firstName,
+        MiddleName: formData.middleName,
+        LastName: formData.lastName,
+        Gender: formData.gender,
+        ArabicfirstName: formData.arabicFirstName,
+        ArabicMiddleName: formData.arabicMiddleName,
+        ArabicLastName: formData.ArabicLastName,
         DOB: birthdate,
         MobileNumber: phonenumber,
-        Nationality: nationref.current.value,
-        CountryOfBirth: countbref.current.value,
-        CityOfBirth: citybref.current.value,
-        StreetName: streetref.current.value,
-        AddressCountry: countref.current.value,
-        City: townref.current.value,
-        ZipCode: zipref.current.value,
-        BuildingNumber: buildref.current.value,
-        WorkStatus: workref.current.value,
-        ProfessionalLevel: professionref.current.value,
-        EmployeeName: employeeref.current.value,
-        WorkAddress: addressref.current.value,
-        SalaryRange: salaryref.current.value,
-        IdentificationType: identityref.current.value,
-        IdentificationNO: identnoref.current.value,
-        frontside: frontref.current.value,
-        backside: backref.current.value,
-        IssuedDate: issueref.current.value,
-        DegreeofRelation: relationref.current.value,
-        Locationforcarddelivery: preref.current.value,
-        USGreencardholder: greenref.current.value,
-        USTaxpayer: taxref.current.value,
-        USResident: residentref.current.value,
-        Politicallyexposedperson: politicref.current.value,
+        Nationality: formData.nationality,
+        CountryOfBirth: formData.countryOfBirth,
+        CityOfBirth: formData.cityOfBirth,
+        nameOnTheCard: formData.nameOnTheCard,
+        StreetName: formData.streetName,
+        AddressCountry: formData.presentAddressCountry,
+        City: formData.city,
+        ZipCode: formData.zipCode,
+        BuildingNumber: formData.buildingNumber,
+        WorkStatus: formData.workStatus,
+        ProfessionalLevel: formData.professionalLevel,
+        EmployeeName: formData.employeeName,
+        WorkAddress: formData.workAddress,
+        SalaryRange: formData.salaryRange,
+        IdentificationType: formData.identificationType,
+        IdentificationNO: formData.identificationNO,
+        IssuedDate: formData.issuedDate,
+        DegreeofRelation: formData.degreeOfRelation,
+        Locationforcarddelivery: formData.cardDeliveryLocation,
+        USGreencardholder: formData.USGreenCardHolder,
+        USTaxpayer: formData.USTaxPayer,
+        USResident: formData.USResident,
+        Politicallyexposedperson: formData.politicallyExposedPerson,
       };
       axios
         .post(
@@ -144,7 +132,6 @@ const DriverAdd = () => {
           driver
         )
         .then((res) => {
-          console.log(res.data);
           usercntx.addUser(driver, (driver.id = res.data.name));
           history.push("/");
         })
@@ -177,13 +164,18 @@ const DriverAdd = () => {
               </Container>
               <Row className="mb-3">
                 <Form.Group as={Col} controlId="formGridState">
-                  <Form.Label>COUNTRY<span className="text-danger">*</span></Form.Label>
+                  <Form.Label>
+                    COUNTRY<span className="text-danger">*</span>
+                  </Form.Label>
                   <Form.Control
                     as="select"
-                    value={country}
-                    onChange={handleCountryChange}
+                    name="country"
+                    value={formData.country}
+                    onChange={(e) =>
+                      setFormData({ ...formData, country: e.target.value })
+                    }
                     required
-                    isInvalid={submitted && !isCountryValid}
+                    className={formData.country ? "" : "is-invalid"}
                   >
                     <option value="">Select Country</option>
                     <option value="INDIA">INDIA</option>
@@ -204,8 +196,10 @@ const DriverAdd = () => {
                       name="group0"
                       type="radio"
                       value="Driver"
-                      checked={selectedOption === "Driver"}
-                      onChange={handleOptionChange}
+                      checked={formData.userType === "Driver"}
+                      onChange={(e) =>
+                        setFormData({ ...formData, userType: e.target.value })
+                      }
                       id={`inline-radio-1`}
                     />
                     <Form.Check
@@ -214,8 +208,10 @@ const DriverAdd = () => {
                       name="group0"
                       type="radio"
                       value="Broker&Driver"
-                      checked={selectedOption === "Broker&Driver"}
-                      onChange={handleOptionChange}
+                      checked={formData.userType === "Driver"}
+                      onChange={(e) =>
+                        setFormData({ ...formData, userType: e.target.value })
+                      }
                       id={`inline-radio-2`}
                     />
                   </div>
@@ -225,13 +221,18 @@ const DriverAdd = () => {
                 <legend className="field">PERSONAL DETAILS</legend>
                 <Row className="mb-3">
                   <Form.Group as={Col} controlId="formGridfirst">
-                    <Form.Label>FIRST NAME<span className="text-danger">*</span></Form.Label>
+                    <Form.Label>
+                      FIRST NAME<span className="text-danger">*</span>
+                    </Form.Label>
                     <Form.Control
                       type="text"
-                      value={firstname}
-                      onChange={handleFirstNameChange}
+                      name="firstname"
+                      value={formData.firstName}
+                      onChange={(e) =>
+                        setFormData({ ...formData, firstName: e.target.value })
+                      }
                       required
-                      isInvalid={submitted && !fnameValid}
+                      className={formData.firstName ? "" : "is-invalid"}
                     />
                     <Form.Control.Feedback type="invalid">
                       Please enter your name.
@@ -239,16 +240,28 @@ const DriverAdd = () => {
                   </Form.Group>
                   <Form.Group as={Col} controlId="formGridMid">
                     <Form.Label>MIDDLE NAME</Form.Label>
-                    <Form.Control ref={middleref} />
-                  </Form.Group>
-                  <Form.Group as={Col} controlId="formGridLast">
-                    <Form.Label>LAST NAME<span className="text-danger">*</span></Form.Label>
                     <Form.Control
                       type="text"
-                      value={lastname}
-                      onChange={handleLastNameChange}
+                      name="middleName"
+                      value={formData.middleName}
+                      onChange={(e) =>
+                        setFormData({ ...formData, middleName: e.target.value })
+                      }
+                    />
+                  </Form.Group>
+                  <Form.Group as={Col} controlId="formGridLast">
+                    <Form.Label>
+                      LAST NAME<span className="text-danger">*</span>
+                    </Form.Label>
+                    <Form.Control
+                      type="text"
+                      name="lastName"
+                      value={formData.lastName}
+                      onChange={(e) =>
+                        setFormData({ ...formData, lastName: e.target.value })
+                      }
                       required
-                      isInvalid={submitted && !lnameValid}
+                      className={formData.lastName ? "" : "is-invalid"}
                     />
                     <Form.Control.Feedback type="invalid">
                       Please enter your lastname.
@@ -256,7 +269,14 @@ const DriverAdd = () => {
                   </Form.Group>
                   <Form.Group as={Col} controlId="formGridGender">
                     <Form.Label>GENDER</Form.Label>
-                    <Form.Select defaultValue="Select" required ref={genderref}>
+                    <Form.Select
+                      required
+                      name="gender"
+                      value={formData.gender}
+                      onChange={(e) =>
+                        setFormData({ ...formData, gender: e.target.value })
+                      }
+                    >
                       <option>Select</option>
                       <option>Female</option>
                       <option>Male</option>
@@ -269,18 +289,50 @@ const DriverAdd = () => {
                 <Row className="mb-3">
                   <Form.Group as={Col} controlId="formGridArabic1">
                     <Form.Label>FIRST NAME IN ARABIC</Form.Label>
-                    <Form.Control ref={arabicfirstref} />
+                    <Form.Control
+                      type="text"
+                      name="arabicFirstName"
+                      value={formData.arabicFirstName}
+                      onChange={(e) =>
+                        setFormData({
+                          ...formData,
+                          arabicFirstName: e.target.value,
+                        })
+                      }
+                    />
                   </Form.Group>
                   <Form.Group as={Col} controlId="formGridMidarabic">
                     <Form.Label>MIDDLE NAME IN ARABIC</Form.Label>
-                    <Form.Control ref={arabicsecondref} />
+                    <Form.Control
+                      type="text"
+                      name="arabicMiddleName"
+                      value={formData.arabicMiddleName}
+                      onChange={(e) =>
+                        setFormData({
+                          ...formData,
+                          arabicMiddleName: e.target.value,
+                        })
+                      }
+                    />
                   </Form.Group>
                   <Form.Group as={Col} controlId="formGridLastarabic">
                     <Form.Label>LAST NAME IN ARABIC</Form.Label>
-                    <Form.Control ref={arabiclastref} />
+                    <Form.Control
+                      type="text"
+                      name="arabicMiddleName"
+                      value={formData.arabicMiddleName}
+                      onChange={(e) =>
+                        setFormData({
+                          ...formData,
+                          arabicMiddleName: e.target.value,
+                        })
+                      }
+                    />
                   </Form.Group>
                   <Form.Group as={Col} controlId="formGridDOB">
-                    <Form.Label>DATE OF BIRTH<span className="text-danger">*</span></Form.Label>
+                    <Form.Label>
+                      DATE OF BIRTH<span className="text-danger">*</span>
+                    </Form.Label>
                     <FormControl
                       type="date"
                       value={birthdate}
@@ -300,7 +352,9 @@ const DriverAdd = () => {
                 </Row>
                 <Row className="mb-3">
                   <Form.Group as={Col} controlId="formGridMobile">
-                    <Form.Label>MOBILE NUMBER<span className="text-danger">*</span></Form.Label>
+                    <Form.Label>
+                      MOBILE NUMBER<span className="text-danger">*</span>
+                    </Form.Label>
                     <Form.Control
                       type="tel"
                       value={phonenumber}
@@ -317,12 +371,19 @@ const DriverAdd = () => {
                     <Form.Label>NATIONALITY</Form.Label>
                     <Form.Select
                       defaultValue="Select Nationality"
-                      ref={nationref}
+                      name="nationality"
+                      value={formData.nationality}
+                      onChange={(e) =>
+                        setFormData({
+                          ...formData,
+                          nationality: e.target.value,
+                        })
+                      }
                       required
                     >
-                      <option value=''>Select Nationality</option>
-                      <option value='JAPAN'>JAPAN</option>
-                      <option value='INDIAN'>INDIAN</option>
+                      <option value="">Select Nationality</option>
+                      <option value="JAPAN">JAPAN</option>
+                      <option value="INDIAN">INDIAN</option>
                     </Form.Select>
                     <Form.Control.Feedback type="invalid">
                       Please select an option.
@@ -331,20 +392,36 @@ const DriverAdd = () => {
                   <Form.Group as={Col} controlId="formGridBirth">
                     <Form.Label>COUNTRY OF BIRTH</Form.Label>
                     <Form.Select
-                      defaultValue="Select Country"
-                      ref={countbref}
+                      name="birthCountry"
+                      value={formData.countryOfBirth}
+                      onChange={(e) =>
+                        setFormData({
+                          ...formData,
+                          countryOfBirth: e.target.value,
+                        })
+                      }
                       required
                     >
-                      <option value =''>Select Country</option>
-                      <option value ='Indian'>Indian</option>
-                      <option value='Qatar'>Qatar</option>
+                      <option value="">Select Country</option>
+                      <option value="Indian">Indian</option>
+                      <option value="Qatar">Qatar</option>
                     </Form.Select>
                   </Form.Group>
                   <Form.Group as={Col} controlId="formGridCityB">
                     <Form.Label>CITY OF BIRTH</Form.Label>
-                    <Form.Select defaultValue="Select City" ref={citybref}>
-                      <option value=''>Select City</option>
-                      <option value='Damam'>Damam</option>
+                    <Form.Select
+                      defaultValue="Select City"
+                      name="city"
+                      value={formData.cityOfBirth}
+                      onChange={(e) =>
+                        setFormData({
+                          ...formData,
+                          cityOfBirth: e.target.value,
+                        })
+                      }
+                    >
+                      <option value="">Select City</option>
+                      <option value="Damam">Damam</option>
                       <option>Kochin</option>
                     </Form.Select>
                   </Form.Group>
@@ -352,7 +429,17 @@ const DriverAdd = () => {
                 <Row className="mb-3">
                   <Form.Group as={Col} controlId="formGridNameCard">
                     <Form.Label>NAME ON THE CARD</Form.Label>
-                    <Form.Control ref={cardnameref} />
+                    <Form.Control
+                      type="text"
+                      name="nameOnTheCard"
+                      value={formData.nameOnTheCard}
+                      onChange={(e) =>
+                        setFormData({
+                          ...formData,
+                          nameOnTheCard: e.target.value,
+                        })
+                      }
+                    />
                     <Form.Text id="formGridNameCard" muted>
                       Please enter a name which is used in the identity card
                     </Form.Text>
@@ -364,18 +451,32 @@ const DriverAdd = () => {
                 <Row className="mb-3">
                   <Form.Group as={Col} controlId="formGridStreet">
                     <Form.Label>STREET NAME</Form.Label>
-                    <Form.Control required ref={streetref} />
+                    <Form.Control
+                      type="text"
+                      name="streetName"
+                      value={formData.streetName}
+                      onChange={(e) =>
+                        setFormData({ ...formData, streetName: e.target.value })
+                      }
+                    />
                   </Form.Group>
                   <Form.Group as={Col} controlId="formGridCount">
                     <Form.Label>COUNTRY</Form.Label>
                     <Form.Select
                       defaultValue="Select Country"
+                      name="presentAddressCountry"
+                      value={formData.presentAddressCountry}
+                      onChange={(e) =>
+                        setFormData({
+                          ...formData,
+                          presentAddressCountry: e.target.value,
+                        })
+                      }
                       required
-                      ref={countref}
                     >
-                      <option value=''>Select Country</option>
-                      <option value='India'>India</option>
-                      <option value='Qatar'>Qatar</option>
+                      <option value="">Select Country</option>
+                      <option value="India">India</option>
+                      <option value="Qatar">Qatar</option>
                     </Form.Select>
                     <Form.Control.Feedback type="invalid">
                       Please select an option.
@@ -386,22 +487,44 @@ const DriverAdd = () => {
                     <Form.Select
                       defaultValue="Select City/Town"
                       required
-                      ref={townref}
+                      name="city"
+                      value={formData.city}
+                      onChange={(e) =>
+                        setFormData({ ...formData, city: e.target.value })
+                      }
                     >
-                      <option value=''>Select City/Town</option>
-                      <option value='Damam'>Damam</option>
-                      <option value='kochin'>Kochin</option>
+                      <option value="">Select City/Town</option>
+                      <option value="Damam">Damam</option>
+                      <option value="kochin">Kochin</option>
                     </Form.Select>
                   </Form.Group>
                   <Form.Group as={Col} controlId="formGridZip">
                     <Form.Label>ZIP CODE</Form.Label>
-                    <Form.Control type="number" required ref={zipref} />
+                    <Form.Control
+                      type="number"
+                      name="zipCode"
+                      value={formData.zipCode}
+                      onChange={(e) =>
+                        setFormData({ ...formData, zipCode: e.target.value })
+                      }
+                    />
                   </Form.Group>
                 </Row>
                 <Row className="mb-3">
                   <Form.Group as={Col} xs={5} controlId="formGridBuild">
                     <Form.Label>BUILDING NUMBER</Form.Label>
-                    <Form.Control type="number" required ref={buildref} />
+                    <Form.Control
+                      type="number"
+                      required
+                      name="buildingNumber"
+                      value={formData.buildingNumber}
+                      onChange={(e) =>
+                        setFormData({
+                          ...formData,
+                          buildingNumber: e.target.value,
+                        })
+                      }
+                    />
                   </Form.Group>
                 </Row>
               </fieldset>
@@ -413,11 +536,15 @@ const DriverAdd = () => {
                     <Form.Select
                       defaultValue="Select Work Status"
                       required
-                      ref={workref}
+                      name="workStatus"
+                      value={formData.workStatus}
+                      onChange={(e) =>
+                        setFormData({ ...formData, workStatus: e.target.value })
+                      }
                     >
-                      <option value=''>Select Work Status</option>
-                      <option value='Experienced'>Experienced</option>
-                      <option value='fresher'>Fresher</option>
+                      <option value="">Select Work Status</option>
+                      <option value="Experienced">Experienced</option>
+                      <option value="fresher">Fresher</option>
                     </Form.Select>
                   </Form.Group>
                   <Form.Group as={Col} controlId="formGridProfessional">
@@ -425,20 +552,47 @@ const DriverAdd = () => {
                     <Form.Select
                       defaultValue="Select Professional Level"
                       required
-                      ref={professionref}
+                      name="professionalLevel"
+                      value={formData.professionalLevel}
+                      onChange={(e) =>
+                        setFormData({
+                          ...formData,
+                          professionalLevel: e.target.value,
+                        })
+                      }
                     >
-                      <option value=''>Select Professional Level</option>
-                      <option value='Experienced'>Experienced</option>
-                      <option value = 'Fresher'>Fresher</option>
+                      <option value="">Select Professional Level</option>
+                      <option value="Experienced">Experienced</option>
+                      <option value="Fresher">Fresher</option>
                     </Form.Select>
                   </Form.Group>
                   <Form.Group as={Col} controlId="formGridEmployee">
                     <Form.Label>EMPLOYEE NAME</Form.Label>
-                    <Form.Control required ref={employeeref} />
+                    <Form.Control
+                      required
+                      name="employeeName"
+                      value={formData.employeeName}
+                      onChange={(e) =>
+                        setFormData({
+                          ...formData,
+                          employeeName: e.target.value,
+                        })
+                      }
+                    />
                   </Form.Group>
                   <Form.Group as={Col} controlId="formGridWorkAdd">
                     <Form.Label>WORK ADDRESS</Form.Label>
-                    <Form.Control required ref={addressref} />
+                    <Form.Control
+                      required
+                      name="workAddress"
+                      value={formData.workAddress}
+                      onChange={(e) =>
+                        setFormData({
+                          ...formData,
+                          workAddress: e.target.value,
+                        })
+                      }
+                    />
                   </Form.Group>
                 </Row>
                 <Row className="mb-3">
@@ -449,7 +603,14 @@ const DriverAdd = () => {
                       step="10000"
                       min="0"
                       required
-                      ref={salaryref}
+                      name="salaryRange"
+                      value={formData.salaryRange}
+                      onChange={(e) =>
+                        setFormData({
+                          ...formData,
+                          salaryRange: e.target.value,
+                        })
+                      }
                     />
                   </Form.Group>
                 </Row>
@@ -462,20 +623,38 @@ const DriverAdd = () => {
                     <Form.Select
                       defaultValue="Select Identification"
                       required
-                      ref={identityref}
+                      name="identificationType"
+                      value={formData.identificationType}
+                      onChange={(e) =>
+                        setFormData({
+                          ...formData,
+                          identificationType: e.target.value,
+                        })
+                      }
                     >
-                      <option value=''>Select Identification</option>
-                      <option value='Aadhar'>Aadhar</option>
-                      <option value='ID'>ID Card</option>
+                      <option value="">Select Identification</option>
+                      <option value="Aadhar">Aadhar</option>
+                      <option value="ID">ID Card</option>
                     </Form.Select>
                   </Form.Group>
                   <Form.Group as={Col} controlId="formGridIdentity">
                     <Form.Label>IDENTIFICATION NO</Form.Label>
-                    <Form.Control type="number" required ref={identnoref} />
+                    <Form.Control
+                      type="number"
+                      required
+                      name="identificationNO"
+                      value={formData.identificationNO}
+                      onChange={(e) =>
+                        setFormData({
+                          ...formData,
+                          identificationNO: e.target.value,
+                        })
+                      }
+                    />
                   </Form.Group>
                   <Form.Group as={Col} controlId="formFileLg" className="mb-3 ">
                     <Form.Label>FRONT SIDE</Form.Label>
-                    <Form.Control type="file" size="lg" ref={frontref} />
+                    <Form.Control type="file" size="lg" />
                   </Form.Group>
                   <Form.Group
                     as={Col}
@@ -483,13 +662,21 @@ const DriverAdd = () => {
                     className="mb-3 "
                   >
                     <Form.Label>BACK SIDE</Form.Label>
-                    <Form.Control type="file" size="lg" ref={backref} />
+                    <Form.Control type="file" size="lg" />
                   </Form.Group>
                 </Row>
                 <Row className="mb-3">
                   <Form.Group as={Col} xs={5} controlId="formGridIssued">
                     <Form.Label>ISSUED DATE</Form.Label>
-                    <Form.Control type="date" required ref={issueref} />
+                    <Form.Control
+                      type="date"
+                      required
+                      name="issuedDate"
+                      value={formData.issuedDate}
+                      onChange={(e) =>
+                        setFormData({ ...formData, issuedDate: e.target.value })
+                      }
+                    />
                   </Form.Group>
                 </Row>
               </fieldset>
@@ -505,7 +692,13 @@ const DriverAdd = () => {
                         name="group1"
                         type="radio"
                         value="No"
-                        ref={greenref}
+                        checked={formData.USGreenCardHolder === "No"}
+                        onChange={(e) =>
+                          setFormData({
+                            ...formData,
+                            USGreenCardHolder: e.target.value,
+                          })
+                        }
                         id={`inline-radio-1`}
                       />
                       <Form.Check
@@ -514,7 +707,13 @@ const DriverAdd = () => {
                         name="group1"
                         type="radio"
                         value="Yes"
-                        ref={greenref}
+                        checked={formData.USGreenCardHolder === "Yes"}
+                        onChange={(e) =>
+                          setFormData({
+                            ...formData,
+                            USGreenCardHolder: e.target.value,
+                          })
+                        }
                         id={`inline-radio-2`}
                       />
                     </div>
@@ -528,7 +727,13 @@ const DriverAdd = () => {
                         name="group4"
                         type="radio"
                         value="No"
-                        ref={taxref}
+                        checked={formData.USTaxPayer === "No"}
+                        onChange={(e) =>
+                          setFormData({
+                            ...formData,
+                            USTaxPayer: e.target.value,
+                          })
+                        }
                         id={`inline-radio-1`}
                       />
                       <Form.Check
@@ -537,7 +742,13 @@ const DriverAdd = () => {
                         name="group4"
                         type="radio"
                         value="Yes"
-                        ref={taxref}
+                        checked={formData.USTaxPayer === "Yes"}
+                        onChange={(e) =>
+                          setFormData({
+                            ...formData,
+                            USTaxPayer: e.target.value,
+                          })
+                        }
                         id={`inline-radio-2`}
                       />
                     </div>
@@ -551,7 +762,13 @@ const DriverAdd = () => {
                         name="group2"
                         type="radio"
                         value="No"
-                        ref={residentref}
+                        checked={formData.USResident === "No"}
+                        onChange={(e) =>
+                          setFormData({
+                            ...formData,
+                            USResident: e.target.value,
+                          })
+                        }
                         id={`inline-radio-1`}
                       />
                       <Form.Check
@@ -560,7 +777,13 @@ const DriverAdd = () => {
                         name="group2"
                         type="radio"
                         value="Yes"
-                        ref={residentref}
+                        checked={formData.USResident === "Yes"}
+                        onChange={(e) =>
+                          setFormData({
+                            ...formData,
+                            USResident: e.target.value,
+                          })
+                        }
                         id={`inline-radio-2`}
                       />
                     </div>
@@ -580,7 +803,13 @@ const DriverAdd = () => {
                         name="group3"
                         type="radio"
                         value="No"
-                        ref={politicref}
+                        checked={formData.politicallyExposedPerson === "No"}
+                        onChange={(e) =>
+                          setFormData({
+                            ...formData,
+                            politicallyExposedPerson: e.target.value,
+                          })
+                        }
                         id={`inline-radio-1`}
                       />
                       <Form.Check
@@ -589,7 +818,13 @@ const DriverAdd = () => {
                         name="group3"
                         type="radio"
                         value="Yes"
-                        ref={politicref}
+                        checked={formData.politicallyExposedPerson === "Yes"}
+                        onChange={(e) =>
+                          setFormData({
+                            ...formData,
+                            politicallyExposedPerson: e.target.value,
+                          })
+                        }
                         id={`inline-radio-2`}
                       />
                     </div>
@@ -602,11 +837,18 @@ const DriverAdd = () => {
                   <Form.Select
                     defaultValue="Select Relation"
                     required
-                    ref={relationref}
+                    name="degreeOfRelation"
+                    value={formData.degreeOfRelation}
+                    onChange={(e) =>
+                      setFormData({
+                        ...formData,
+                        degreeOfRelation: e.target.value,
+                      })
+                    }
                   >
-                    <option value=''>Select Relation</option>
-                    <option value='Father'>Father</option>
-                    <option value='spouse'>Spouse</option>
+                    <option value="">Select Relation</option>
+                    <option value="Father">Father</option>
+                    <option value="spouse">Spouse</option>
                   </Form.Select>
                 </Form.Group>
                 <Form.Group as={Col} controlId="formGriddelivery">
@@ -614,11 +856,18 @@ const DriverAdd = () => {
                   <Form.Select
                     defaultValue="Select Location"
                     required
-                    ref={preref}
+                    name="cardDeliveryLocation"
+                    value={formData.cardDeliveryLocation}
+                    onChange={(e) =>
+                      setFormData({
+                        ...formData,
+                        cardDeliveryLocation: e.target.value,
+                      })
+                    }
                   >
-                    <option value=''>Select Location</option>
-                    <option value='India'>India</option>
-                    <option value='UAE'>UAE</option>
+                    <option value="">Select Location</option>
+                    <option value="India">India</option>
+                    <option value="UAE">UAE</option>
                   </Form.Select>
                 </Form.Group>
               </Row>

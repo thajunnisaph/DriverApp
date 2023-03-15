@@ -9,7 +9,7 @@ export const UserContextProvider = (props) => {
   const [user, setUser] = useState([]);
 
   const addUserHandler = (user) => {
-    console.log(user);
+    
     setUser((prev) => {
       return [...prev, user];
     });

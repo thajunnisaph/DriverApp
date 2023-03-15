@@ -16,6 +16,8 @@ background-color:lightgray;
     color: white;
     margin-bottom: 12px;
 }
-
+.is-invalid {
+    border: 1px solid red;
+  }
 
 

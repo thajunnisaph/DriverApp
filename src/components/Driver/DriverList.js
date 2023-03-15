@@ -4,7 +4,7 @@ import { Table, Container, Row, Col, Button, Modal } from "react-bootstrap";
 import "./DriverList.css";
 
 const DriverList = (props) => {
-  const cntx = useContext(UserContext);
+  const contextvar = useContext(UserContext);
   const [showModal, setShowModal] = useState(false);
   const [selectedEmployee, setSelectedEmployee] = useState(null);
 
@@ -36,7 +36,7 @@ const DriverList = (props) => {
               </tr>
             </thead>
             <tbody>
-              {cntx.users.map((user) => {
+              {contextvar.users.map((user) => {
                 return (
                   <tr key={user.id}>
                     <td>
@@ -100,7 +100,7 @@ const DriverList = (props) => {
               <p>CountryOfBirth:{selectedEmployee.CountryOfBirth}</p>
               <p>CityOfBirth:{selectedEmployee.CityOfBirth}</p>
               <p>
-                Present Address:{selectedEmployee.StreetName},
+                Present Address:{selectedEmployee.StreetName},  
                 {selectedEmployee.AddressCountry},{selectedEmployee.City},
                 {selectedEmployee.ZipCode},{selectedEmployee.BuildingNumber}
               </p>
